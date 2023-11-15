@@ -10,6 +10,8 @@ var Gaem = (function(module) {
     var counter = 0; // The current counter
     var spin = 0; // The value we are waiting for the counter to reach
     var gaemInterval = null; // Holds the interval that updates the counter
+    var screenSize = 2000>window.screen.width;
+
 
     var sounds = [
         'sounds/airhorn.mp3'
@@ -114,7 +116,8 @@ var Gaem = (function(module) {
         var names = [];
 
         // Create array of objects with random names
-        for (var i = 0; i <= (num + 10); i++) {
+        if(screenSize){
+        for (var i = 0; i <= (num + 30); i++) {
             names.push({name: settings.names[Math.floor(Math.random() * settings.names.length)]});
         }
         
@@ -128,7 +131,7 @@ var Gaem = (function(module) {
         
         // Calculate movement
         var movement = (num * 140) - 70;
-        
+
         // Calculate random movement
         var dir = Gaem.utilities.randomInt(0, 1);
         var rand = Gaem.utilities.randomInt(0, 30);
@@ -153,7 +156,7 @@ var Gaem = (function(module) {
             var click_interval = setInterval(function() {
                 // Get current posision
                 var current_pos = (Math.floor($spinner_container.position().left) * -1) - 70;
-
+                
                 if (current_pos > 0) {
                     // Calculate how many blocks we have moved
                     var blocks_moved = Math.floor(current_pos / 130);
@@ -198,7 +201,98 @@ var Gaem = (function(module) {
                     setTimeout(scope.restart, 15000);
                 }, 8000, scope, click_interval);
            }
-        }, (1500 + 400), module, index);
+        }, (1500 + 400), module, index);}
+        else{
+            for (var i = 0; i <= (num + 10); i++) {
+                //for (var i = 0; i <= (num + 30); i++) {
+                    names.push({name: settings.names[Math.floor(Math.random() * settings.names.length)]});
+                }
+                
+                // Get template
+                var template = _.template(
+                    $( "script.template-spinner" ).html()
+                );
+                
+                // Append template to container
+                $('#container').append(template({'names': names, 'id': id}));
+                
+                // Calculate movement
+                //var movement = (num * 140) - 70;
+                var movement = (num*210)-105;
+        
+                // Calculate random movement
+                var dir = Gaem.utilities.randomInt(0, 1);
+                var rand = Gaem.utilities.randomInt(0, 30);
+                
+                if (dir == 0) {
+                    movement -= rand;
+                }
+                else {
+                    movement += rand;
+                }
+                
+                // Fade the spinner in
+                $('#spinner_' + id).fadeIn(400);
+                
+                // Apply the effect
+                setTimeout(function(scope, index) {
+                    var $spinner_container = $('#spinner_' + id + ' ul');
+                    $spinner_container.css({left: ($spinner_container.position().left - movement)});
+        
+                    // Scroll sounds
+                    var clicks_played = 0;
+                    var click_interval = setInterval(function() {
+                        // Get current posision
+                        //var current_pos = (Math.floor($spinner_container.position().left) * -1) - 70;
+                        
+                        var current_pos = (Math.floor($spinner_container.position().left) * -1) - 105;
+                        if (current_pos > 0) {
+                            // Calculate how many blocks we have moved
+                            //var blocks_moved = Math.floor(current_pos / 130);
+                            var blocks_moved = Math.floor(current_pos / 200);
+        
+                            // Check if we should play sound
+                            if (blocks_moved > clicks_played) {
+                                // Increase clicks played
+                                clicks_played++;
+        
+                                // Play scroll sound
+                                var audio = new Audio('sounds/other/scroll.mp3');
+                                audio.play();
+                            }
+                        }
+                    }, 10);
+                    
+                    // Fade out all containers
+                    setTimeout(function() {
+                        $spinner_container.find('li').not(':eq(' + (num + 2) + ')').css({opacity: 0.25});
+                    }, 8000);
+                    
+                    // Hide the line
+                    setTimeout(function() {
+                         $('#spinner_' + id + ' .line').css({opacity: 0});
+                    }, 8000);
+                    
+                    // Only do this once
+                    if (index == 0) {
+                        // Play sound
+                        setTimeout(function(scope, click_interval) {
+                            // Check if we should play sounds
+                            if (scope.playSounds()) {
+                                // Play random sound
+                                var audio = new Audio(scope.getSounds());
+                                audio.play();
+                            }
+        
+                            // Unset interval for clicking sounds
+                            clearInterval(click_interval);
+        
+                            // Set timeout to start again (15 secs)
+                            setTimeout(scope.restart, 15000);
+                        }, 8000, scope, click_interval);
+                   }
+                }, (1500 + 400), module, index); 
+        }
     };
 
     /*

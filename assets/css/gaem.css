@@ -1,6 +1,7 @@
 /*
  * Spinner
  */
+
 .spinner {
     width: 830px;
     padding: 10px;
@@ -12,6 +13,7 @@
     margin-bottom: 25px;
     display: none;
 }
+
 .spinner-holder {
     width: 830px;
     overflow: hidden;
@@ -48,6 +50,7 @@
     flex-direction:column;
 }
 
+
 /*
  * Line
  */
@@ -77,3 +80,78 @@
     left: 3px;
     top: 0px;
 }
+@media (min-width: 2000px) {
+    .spinner {
+        width: 1250px;
+        padding: 15px;
+        margin: 0 auto;
+        height: 200px;
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 4px 4px;
+        margin-bottom: 38px;
+        display: none;
+    }
+    
+    .spinner-holder {
+        width: 1250px;
+        overflow: hidden;
+        height: 200px;
+    }
+    .spinner ul {
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        transition: all 8s ease 0s;
+        width: 1000000px;
+    }
+    .spinner ul li {
+        float: left;
+        height: 230px;
+        width: 210px;
+        transition: all 1s ease 0s;
+    }
+    .list-container {
+        width: 165px;
+        height: 165px;
+        padding: 15px;
+        background-color: #607386;
+        color: #fff;
+        font-size: 36px;
+        text-align: center;
+        border-radius: 6px 6px;
+        display: flex;
+        justify-content:center;
+        align-content:center;
+        flex-direction:column;
+    }
+    .line {
+        width: 6px;
+        height: 230px;
+        position: absolute;
+        left: 50%;
+        margin-left: -3px;
+        top: 0px;
+        z-index: 100;
+        transition: all 1s ease 0s;
+    }
+    .line-inner1 {
+        height: 230px;
+        width: 4px;
+        background-color: rgba(255, 0, 0, 0.75);
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+    .line-inner2 {
+        height: 230px;
+        width: 2px;
+        background-color: rgba(224, 41, 41, 0.75);
+        position: absolute;
+        left: 3px;
+        top: 0px;
+    }
+  }
