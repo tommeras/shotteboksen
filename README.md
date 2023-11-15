@@ -26,3 +26,8 @@ Changable settings include:
 - Change for triple spin: Define change of three simultaneous spinners.
 - Names: Names for people that can be given a drink.
 - Play sounds: Whether or not to play sounds after each spinning is finished.
+
+## Change background photo:
+Add photos for use to ``/assets/css/gfx`` folder.
+
+Change ``background-image`` url in ``common.css`` to desired filepath.

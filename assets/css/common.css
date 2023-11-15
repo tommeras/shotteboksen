@@ -69,11 +69,6 @@ div {
     height: 525px;
 }
 @media (min-width: 2000px) {
-  /*  html {
-        font-family: Bebas,Arial,sans-serif;
-        background-image: url('gfx/Shotteboksen1440.png');
-        background-size:cover
-    }*/
     #container {
         width: 1300px;
         position: absolute;
